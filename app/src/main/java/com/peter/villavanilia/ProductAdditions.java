@@ -206,7 +206,7 @@ public class ProductAdditions extends AppCompatActivity implements CompoundButto
                 return response;
 
             } catch (IOException e) {
-                Common.showErrorAlert(ProductAdditions.this,getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(ProductAdditions.this,getString(R.string.error_please_try_again_later));
                 return "";
             }
         }
@@ -273,7 +273,7 @@ public class ProductAdditions extends AppCompatActivity implements CompoundButto
 
                 }
             } catch (JSONException e) {
-                Common.showErrorAlert(ProductAdditions.this,getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(ProductAdditions.this,getString(R.string.error_please_try_again_later));
             }
 
         }

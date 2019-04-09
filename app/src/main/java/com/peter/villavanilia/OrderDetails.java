@@ -121,7 +121,7 @@ public class OrderDetails extends AppCompatActivity {
                 return response;
 
             } catch (IOException e) {
-                Common.showErrorAlert(OrderDetails.this,getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(OrderDetails.this,getString(R.string.error_please_try_again_later));
                 return "";
             }
         }
@@ -156,7 +156,7 @@ public class OrderDetails extends AppCompatActivity {
 
                 }
             } catch (JSONException e) {
-                Common.showErrorAlert(OrderDetails.this,getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(OrderDetails.this,getString(R.string.error_please_try_again_later));
             }
 
         }

@@ -80,7 +80,7 @@
     <string name="ok">Ok</string>
     <string name="please_enter_email">Please enter your email</string>
     <string name="please_enter_password">Please enter password</string>
-    <string name="error_please_try_again_later.">Error, please try again later.</string>
+    <string name="error_please_try_again_later">Error, please try again later.</string>
     <string name="please_enter_user_name">Please enter your name</string>
     <string name="please_enter_your_address">Please enter your  address.</string>
     <string name="please_enter_your_phone">Please enter your telephone number</string>

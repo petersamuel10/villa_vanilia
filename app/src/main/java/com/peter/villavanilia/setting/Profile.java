@@ -163,7 +163,7 @@ public class Profile extends AppCompatActivity {
                 return response;
 
             } catch (IOException e) {
-                Common.showErrorAlert(Profile.this,getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(Profile.this,getString(R.string.error_please_try_again_later));
                 return "";
             }
         }
@@ -186,7 +186,7 @@ public class Profile extends AppCompatActivity {
 
                 }
             } catch (JSONException e) {
-                Common.showErrorAlert(Profile.this,getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(Profile.this,getString(R.string.error_please_try_again_later));
             }
 
         }

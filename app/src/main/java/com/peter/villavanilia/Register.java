@@ -216,7 +216,7 @@ public class Register extends AppCompatActivity {
                         startActivity(intent);
                     }
                 } catch (JSONException e) {
-                    Common.showErrorAlert(Register.this, getString(R.string.error_please_try_again_later_));
+                    Common.showErrorAlert(Register.this, getString(R.string.error_please_try_again_later));
                 }
             }
 

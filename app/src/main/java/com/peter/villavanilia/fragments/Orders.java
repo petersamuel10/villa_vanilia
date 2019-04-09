@@ -131,7 +131,7 @@ public class Orders extends Fragment {
                 return response;
 
             } catch (IOException e) {
-                Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later));
                 return "";
             }
         }
@@ -177,7 +177,7 @@ public class Orders extends Fragment {
 
                     }
                 } catch (JSONException e) {
-                    Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later_));
+                    Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later));
                 }
             }
 

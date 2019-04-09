@@ -135,7 +135,7 @@ public class Products extends AppCompatActivity {
                 return response;
 
             } catch (IOException e) {
-                Common.showErrorAlert(Products.this, getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(Products.this, getString(R.string.error_please_try_again_later));
                 return "";
             }
         }
@@ -171,7 +171,7 @@ public class Products extends AppCompatActivity {
                     ProductAdapter adapter = new ProductAdapter(productList, Products.this);
                     product_rec.setAdapter(adapter);
                 } else {
-                    Common.showErrorAlert(Products.this, getString(R.string.error_please_try_again_later_));
+                    Common.showErrorAlert(Products.this, getString(R.string.error_please_try_again_later));
                 }
             } catch (JSONException e) {
                 Common.showErrorAlert(Products.this, e.getMessage());

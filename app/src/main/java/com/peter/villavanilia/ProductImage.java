@@ -133,7 +133,7 @@ public class ProductImage extends AppCompatActivity {
                 return response;
 
             } catch (IOException e) {
-                Common.showErrorAlert(ProductImage.this,getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(ProductImage.this,getString(R.string.error_please_try_again_later));
                 return "";
             }
         }
@@ -143,7 +143,7 @@ public class ProductImage extends AppCompatActivity {
            alertDialog.dismiss();
 
             if(result.contains("no")){
-                Common.showErrorAlert(ProductImage.this,getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(ProductImage.this,getString(R.string.error_please_try_again_later));
             }else {
 
                 try {
@@ -190,7 +190,7 @@ public class ProductImage extends AppCompatActivity {
 
 
                 } catch (JSONException e) {
-                    Common.showErrorAlert(ProductImage.this,getString(R.string.error_please_try_again_later_));
+                    Common.showErrorAlert(ProductImage.this,getString(R.string.error_please_try_again_later));
                 }
             }
 

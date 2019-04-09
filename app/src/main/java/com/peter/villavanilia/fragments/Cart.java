@@ -148,7 +148,7 @@ public class Cart extends Fragment implements Delete_cart_interface {
 
         @Override
         protected String doInBackground(String... params) {
-            String signin_url = "http://webservice.kall-center.com/api/"+"GetTimeDate.php";
+            String signin_url = getResources().getString(R.string.api)+"GetTimeDate.php";
             try {
                 URL url = new URL(signin_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -176,7 +176,7 @@ public class Cart extends Fragment implements Delete_cart_interface {
                 return response;
 
             } catch (IOException e) {
-                Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later));
                 return "";
             }
         }
@@ -228,7 +228,7 @@ public class Cart extends Fragment implements Delete_cart_interface {
 
 
             } catch (JSONException e) {
-                Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later));
             }
 
         }

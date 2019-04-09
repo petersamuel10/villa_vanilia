@@ -5,13 +5,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.widget.TextView;
 
 import com.peter.villavanilia.R;
 import com.peter.villavanilia.common.Common;
@@ -112,7 +109,7 @@ public class AboutApp extends Fragment {
                 return response;
 
             } catch (IOException e) {
-                Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later));
                 return "";
             }
         }
@@ -138,7 +135,7 @@ public class AboutApp extends Fragment {
                 about_app.loadDataWithBaseURL("",content,"text/html","UTF-8","");
 
             } catch (JSONException e) {
-                Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later_));
+                Common.showErrorAlert(getActivity(),getString(R.string.error_please_try_again_later));
             }
 
         }
