@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -42,13 +41,13 @@
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:src="@drawable/ic_bank"
         android:adjustViewBounds="true"
+        android:src="@drawable/ic_bank"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -89,11 +88,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layoutDirection="rtl"
             android:button="@drawable/radio_button"
-            android:text="@string/knet"
-            android:tag="0"
             android:checked="true"
+            android:layoutDirection="rtl"
+            android:tag="0"
+            android:text="@string/knet"
             android:textAlignment="textStart"
             android:textSize="24sp" />
 
@@ -109,10 +108,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layoutDirection="rtl"
             android:button="@drawable/radio_button"
-            android:text="@string/paying_with_deliver"
+            android:layoutDirection="rtl"
             android:tag="1"
+            android:text="@string/paying_with_deliver"
             android:textAlignment="textStart"
             android:textSize="24sp" />
 
@@ -143,14 +142,15 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/total_price"
         android:gravity="center_horizontal"
+        android:text="@string/total_price"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/payBtn"
         app:layout_constraintEnd_toStartOf="@+id/total_price"
         app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/total_price"
         android:layout_width="0dp"
@@ -159,8 +159,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="17.000 kd"
         android:gravity="center_horizontal"
+        android:text="17.000 kd"
         android:textColor="@color/green"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -183,6 +183,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/cancelBtn"
         app:layout_constraintWidth_percent="0.495" />
+
     <Button
         android:id="@+id/cancelBtn"
         android:layout_width="0dp"
@@ -196,11 +197,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.495" />
-
-
-
-
-
 
 
 </android.support.constraint.ConstraintLayout>

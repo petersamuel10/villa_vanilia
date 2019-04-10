@@ -1,8 +1,6 @@
 package com.peter.villavanilia;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +9,13 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.google.gson.Gson;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.peter.villavanilia.common.Common;
 import com.peter.villavanilia.model.LoginData;
 import com.peter.villavanilia.model.RegisterModel;
@@ -20,15 +24,8 @@ import com.peter.villavanilia.model.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,7 +79,7 @@ public class Register extends AppCompatActivity {
         if(validate(name,email,password,confirm_password,phone,address)){
             registerModel = new RegisterModel(name,email,password,phone,address);
             if(Common.isConnectToTheInternet(this)) {
-                new RegisterBackgroundTask(this).execute();
+                calApi();
             }else
                 Common.showErrorAlert(this,getString(R.string.error_no_internet_connection));
         }
@@ -117,85 +114,29 @@ public class Register extends AppCompatActivity {
     return true;
     }
 
-    private class RegisterBackgroundTask extends AsyncTask<String, Void, String> {
+    private void calApi() {
 
-        public JSONObject jsonObject=null;
-
-        RegisterBackgroundTask(Activity activity) {
+        JSONObject postparams = new JSONObject();
+        try {
+            postparams.put("user_name", name);
+            postparams.put("user_email", email);
+            postparams.put("user_password", password);
+            postparams.put("user_telep", phone);
+            postparams.put("user_address", address);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-        @Override
-        protected void onPreExecute() {
-            alertDialog.show();
-        }
+        String signUp_url = getResources().getString(R.string.api)+"CreateUsr.php";
+        final RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, signUp_url,postparams, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
 
-        @Override
-        protected String doInBackground(String... params) {
-            String signin_url = getResources().getString(R.string.api)+"CreateUsr.php";
-            try {
-                URL url = new URL(signin_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setRequestProperty("cache-control", "application/json");
-                httpURLConnection.setConnectTimeout(7000);
-                httpURLConnection.setReadTimeout(7000);
-
-                Gson gson = new Gson();
-                String str = gson.toJson(registerModel);
-
-                byte[] outputInBytes = str.getBytes("UTF-8");
-
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-
-                OutputStream OS = httpURLConnection.getOutputStream();
-                OS.write( outputInBytes );
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(OS, "UTF-8"));
-
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                OS.close();
-
-                InputStream IS = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(IS, "iso-8859-1"));
-
-                String response = "";
-                String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
-                    response += line;
-                }
-
-                bufferedReader.close();
-                IS.close();
-                httpURLConnection.disconnect();
-                return response;
-
-            } catch (IOException e) {
-                Common.showErrorAlert(Register.this,e.getMessage());
-                return "";
-            }
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            alertDialog.dismiss();
-
-            Log.d("ststst", "result login: " + result);
-
-            if (result.isEmpty()) {
-                Common.showErrorAlert(Register.this, getString(R.string.email_register_before));
-            } else {
-                // Toast.makeText(Login.this, "//////////////", Toast.LENGTH_SHORT).show();
                 try {
-                    jsonObject = new JSONObject(new String(result));
-                    String status = jsonObject.getString("message");
 
-                    if (status.equals("error")) {
-                        Common.showErrorAlert(Register.this, status);
-                    } else {
-
-                        JSONObject customerInfo = jsonObject.getJSONObject("user");
-                        String jwt = jsonObject.getString("jwt");
+                        JSONObject customerInfo = response.getJSONObject("user");
+                        String jwt = response.getString("jwt");
                         String user_id = customerInfo.getString("user_id");
                         String user_name = customerInfo.getString("user_name");
                         String user_email = customerInfo.getString("user_email");
@@ -212,14 +153,33 @@ public class Register extends AppCompatActivity {
                         Paper.book("villa_vanilia").write("current_user", current_user);
 
 
+                    Log.d("bbbn", "result login: " + response);
                         Intent intent = new Intent(Register.this, MainActivity.class);
                         startActivity(intent);
-                    }
+
                 } catch (JSONException e) {
                     Common.showErrorAlert(Register.this, getString(R.string.error_please_try_again_later));
                 }
+                requestQueue.stop();
             }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Common.showErrorAlert(Register.this, getString(R.string.email_register_before));
+                Log.d("bbbn111","result login: " +  error.getMessage());
+                requestQueue.stop();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("cache-control", "application/json");
+                return params;
+            }
+        };
 
-        }
+        requestQueue.add(stringRequest);
+
     }
+
 }

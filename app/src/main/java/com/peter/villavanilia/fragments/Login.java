@@ -14,6 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.peter.villavanilia.MainActivity;
 import com.peter.villavanilia.R;
@@ -35,6 +42,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,10 +91,80 @@ public class Login extends Fragment {
         password = password_ed.getText().toString();
         if (Common.isConnectToTheInternet(getContext())) {
             if (validate(email, password))
-                new LoginBackgroundTask(getActivity()).execute();
+                calApi();
         } else
             Common.showErrorAlert(getActivity(), getString(R.string.error_no_internet_connection));
 
+
+    }
+
+    private void calApi() {
+
+        JSONObject postparams = new JSONObject();
+        try {
+            postparams.put("user_email", email);
+            postparams.put("user_password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String signin_url = getString(R.string.api) + "LoginUser.php";
+        final RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, signin_url,postparams, new Response.Listener<JSONObject>() {
+             @Override
+             public void onResponse(JSONObject response) {
+
+                 Log.d("ststst22", "result login: " + response);
+
+                 try {
+
+                     JSONObject customerInfo = response.getJSONObject("user");
+                     String jwt = response.getString("jwt");
+                     String user_id = customerInfo.getString("user_id");
+                     String user_name = customerInfo.getString("user_name");
+                     String user_email = customerInfo.getString("user_email");
+                     String user_password = customerInfo.getString("user_password");
+                     String user_telep = customerInfo.getString("user_telep");
+                     String user_address = customerInfo.getString("user_address");
+                     String user_token_device = customerInfo.getString("user_token_device");
+
+                     User user = new User(user_id, user_name, user_email, user_password, user_telep, user_address, user_token_device);
+                     LoginData current_user = new LoginData(null, jwt, user);
+
+                     Common.currentUser = current_user;
+
+                     Paper.book("villa_vanilia").write("current_user", current_user);
+
+                     Gson gson = new Gson();
+                     String str = gson.toJson(user);
+
+                     Log.i("bbbn", str);
+
+
+                     Intent intent = new Intent(getContext(), MainActivity.class);
+                      getContext().startActivity(intent);
+                 } catch (JSONException e) {
+                     Common.showErrorAlert(getActivity(), getString(R.string.error_please_try_again_later));
+                 }
+                 requestQueue.stop();
+             }
+         }, new Response.ErrorListener() {
+             @Override
+             public void onErrorResponse(VolleyError error) {
+                 Common.showErrorAlert(getActivity(), getString(R.string.login_faild));
+                 password_ed.setText("");
+                  requestQueue.stop();
+             }
+         }){
+             @Override
+             public Map<String, String> getHeaders() throws AuthFailureError {
+                 Map<String, String>  params = new HashMap<String, String>();
+                 params.put("cache-control", "application/json");
+                 return params;
+             }
+         };
+
+          requestQueue.add(stringRequest);
 
     }
 
@@ -97,8 +176,9 @@ public class Login extends Fragment {
         } else if (TextUtils.isEmpty(password)) {
             Common.showErrorAlert(getActivity(), getString(R.string.please_enter_password));
             return false;
-        } else
-            return true;
+        }
+
+        return true;
     }
 
     private class LoginBackgroundTask extends AsyncTask<String, Void, String> {
@@ -151,6 +231,7 @@ public class Login extends Fragment {
                 String line = "";
                 while ((line = bufferedReader.readLine()) != null) {
                     response += line;
+                    Log.d("ststst22", "result login: " + line);
                 }
 
                 bufferedReader.close();
@@ -168,10 +249,11 @@ public class Login extends Fragment {
         protected void onPostExecute(String result) {
             alertDialog.dismiss();
 
-            Log.d("ststst", "result login: " + result);
+            Log.d("ststst11", "result login: " + result);
 
             if (result.isEmpty()) {
                 Common.showErrorAlert(getActivity(), getString(R.string.login_faild));
+                email_ed.setText("");
             } else {
                 try {
 
@@ -201,7 +283,7 @@ public class Login extends Fragment {
 
 
                     Intent intent = new Intent(getContext(), MainActivity.class);
-                    getContext().startActivity(intent);
+                   // getContext().startActivity(intent);
                 } catch (JSONException e) {
                     Common.showErrorAlert(getActivity(), getString(R.string.error_please_try_again_later));
                 }

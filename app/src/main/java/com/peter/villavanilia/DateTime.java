@@ -106,13 +106,14 @@ public class DateTime extends AppCompatActivity implements AdapterView.OnItemSel
 
         if(validation()){
 
-            addOrderModel = new AddOrder("", user_id, driver_notes_str, kitchen_notes_str,
+            addOrderModel = new AddOrder("", user_id,address, driver_notes_str, kitchen_notes_str,
                     cart_notes_str, date_str, time_str,products_info_list);
 
 
             Intent i = new Intent(this,PaymentMethod.class);
             i.putExtra("add_order",addOrderModel);
             startActivity(i);
+            finish();
 
            /* Gson gson = new Gson();
             String str = gson.toJson(addOrderModel);
@@ -178,13 +179,13 @@ public class DateTime extends AppCompatActivity implements AdapterView.OnItemSel
         switch (parent.getId()){
             case R.id.time_spinner:
                 time_str = timeList.get(position);
-                Snackbar snackbar = Snackbar.make(rootLayout,time_str,Snackbar.LENGTH_LONG);
-                snackbar.show();
+               /* Snackbar snackbar = Snackbar.make(rootLayout,time_str,Snackbar.LENGTH_LONG);
+                snackbar.show();*/
                 break;
             case R.id.date_spinner:
                 date_str = dateList.get(position);
-                snackbar = Snackbar.make(rootLayout,date_str,Snackbar.LENGTH_LONG);
-                snackbar.show();
+               /* snackbar = Snackbar.make(rootLayout,date_str,Snackbar.LENGTH_LONG);
+                snackbar.show();*/
                 break;
         }
     }

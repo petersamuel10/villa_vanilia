@@ -18,9 +18,9 @@ public class AddOrder implements Parcelable {
     @Expose
     String client_id;
 
-   /* @SerializedName("client_address")
+    @SerializedName("client_address")
     @Expose
-    String client_address;*/
+    String client_address;
 
     @SerializedName("driver_notes")
     @Expose
@@ -49,11 +49,11 @@ public class AddOrder implements Parcelable {
     public AddOrder() {
     }
 
-    public AddOrder(String payment_status_id, String client_id, String driver_notes, String kitchan_notes,
+    public AddOrder(String payment_status_id, String client_id,String client_address, String driver_notes, String kitchan_notes,
                     String card_notes, String order_date, String order_time, ArrayList<ProductModel> product_info) {
         this.payment_status_id = payment_status_id;
         this.client_id = client_id;
-       // this.client_address = client_address;
+        this.client_address = client_address;
         this.driver_notes = driver_notes;
         this.kitchan_notes = kitchan_notes;
         this.card_notes = card_notes;
@@ -65,7 +65,7 @@ public class AddOrder implements Parcelable {
     protected AddOrder(Parcel in) {
         payment_status_id = in.readString();
         client_id = in.readString();
-     //   client_address = in.readString();
+        client_address = in.readString();
         driver_notes = in.readString();
         kitchan_notes = in.readString();
         card_notes = in.readString();
@@ -102,13 +102,13 @@ public class AddOrder implements Parcelable {
         this.client_id = client_id;
     }
 
-   /* public String getClient_address() {
+    public String getClient_address() {
         return client_address;
     }
 
     public void setClient_address(String client_address) {
         this.client_address = client_address;
-    }*/
+    }
 
     public String getDriver_notes() {
         return driver_notes;
@@ -167,7 +167,7 @@ public class AddOrder implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(payment_status_id);
         dest.writeString(client_id);
-      //  dest.writeString(client_address);
+        dest.writeString(client_address);
         dest.writeString(driver_notes);
         dest.writeString(kitchan_notes);
         dest.writeString(card_notes);

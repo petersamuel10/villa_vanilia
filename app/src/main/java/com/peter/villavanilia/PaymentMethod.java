@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -39,7 +38,7 @@ public class PaymentMethod extends AppCompatActivity {
     RadioGroup payment_method_group;
     @BindView(R.id.total_price)
     TextView total_price_txt;
-    @OnClick(R.id.payBtn)
+    @OnClick(R.id.cancelBtn)
     public void cancel() { onBackPressed(); }
 
     String payment_status_id;
@@ -53,7 +52,7 @@ public class PaymentMethod extends AppCompatActivity {
         setContentView(R.layout.activity_payment_method);
         ButterKnife.bind(this);
 
-        alertDialog = Common.alert(this);
+        alertDialog = Common.alert(PaymentMethod.this);
 
         total_price_txt.setText(String.format("%.3f",Paper.book("villa_vanilia").read("total"))+getString(R.string.kd));
 
@@ -64,7 +63,9 @@ public class PaymentMethod extends AppCompatActivity {
     @OnClick(R.id.payBtn)
     public void checkout() {
 
-        try {
+
+
+      try {
             RadioButton checkRadioButton = payment_method_group.findViewById(payment_method_group.getCheckedRadioButtonId());
             payment_status_id = checkRadioButton.getTag().toString();
         }catch (Exception e){}
@@ -87,6 +88,7 @@ public class PaymentMethod extends AppCompatActivity {
        }
 
     }
+
 
     private class AddOrderAPI extends AsyncTask<String, Void, String> {
 
@@ -163,6 +165,7 @@ public class PaymentMethod extends AppCompatActivity {
                 i.putExtra("order_num",order_num);
                 i.putExtra("delivery_time",delivery_time);
                 startActivity(i);
+                finish();
 
             } catch (JSONException e) {
                 Common.showErrorAlert(PaymentMethod.this,getString(R.string.error_please_try_again_later));
