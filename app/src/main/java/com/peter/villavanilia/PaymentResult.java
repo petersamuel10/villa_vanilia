@@ -8,6 +8,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.paperdb.Paper;
 
 public class PaymentResult extends AppCompatActivity {
 
@@ -25,6 +26,8 @@ public class PaymentResult extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_result);
         ButterKnife.bind(this);
+        Paper.init(this);
+        Paper.book("villa_vanilia").delete("cart");
 
         message.setText(getIntent().getStringExtra("message"));
         order_num.setText(getIntent().getStringExtra("order_num"));

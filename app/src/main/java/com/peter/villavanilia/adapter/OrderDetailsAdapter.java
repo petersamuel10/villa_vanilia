@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.peter.villavanilia.R;
 import com.peter.villavanilia.common.Common;
-import com.peter.villavanilia.model.ProductModel;
+import com.peter.villavanilia.model.OrderDetailsModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -21,10 +21,10 @@ import butterknife.ButterKnife;
 
 public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapter.ViewHolder> {
 
-    ArrayList<ProductModel> productList;
+    ArrayList<OrderDetailsModel> productList;
     Context context;
 
-    public OrderDetailsAdapter(ArrayList<ProductModel> productList) {
+    public OrderDetailsAdapter(ArrayList<OrderDetailsModel> productList) {
         this.productList = productList;
     }
 
@@ -57,23 +57,22 @@ public class OrderDetailsAdapter extends RecyclerView.Adapter<OrderDetailsAdapte
         @BindView(R.id.product_additions)
         TextView product_additions;
 
-
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this,itemView);
         }
 
-        public void bind(ProductModel productModel) {
-            Picasso.with(context).load(productModel.getProduct_img()).into(product_image);
+        public void bind(OrderDetailsModel productModel) {
 
             if(Common.isArabic){
                 product_name.setText(productModel.getProduct_title_ar());
-                //product_additions.setText(productModel.get);
             }else {
                 product_name.setText(productModel.getProduct_title_en());
-                //product_additions.setText(productModel.get);
             }
+
+            Picasso.with(context).load(context.getResources().getString(R.string.image_link)+productModel.getProduct_img())
+                    .placeholder(R.drawable.placeholder).into(product_image);
+
         }
     }
 }

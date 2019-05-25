@@ -63,7 +63,6 @@
                android:textColor="@color/green"
                android:textSize="32sp"
                android:textStyle="bold" />
-
            <TextView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
@@ -73,7 +72,6 @@
                android:text="@string/by_creating_an_account"
                android:textColor="@color/greenText"
                android:textSize="16sp" />
-
            <EditText
                android:id="@+id/user_name_ed"
                android:layout_width="match_parent"
@@ -89,7 +87,21 @@
                android:padding="8dp"
                android:textColor="@android:color/black"
                android:textSize="18sp" />
-
+           <EditText
+               android:id="@+id/email_ed"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="20dp"
+               android:layout_marginTop="4dp"
+               android:layout_marginEnd="20dp"
+               android:layout_marginBottom="8dp"
+               android:background="@drawable/border_edittext"
+               android:gravity="start|center_vertical"
+               android:hint="@string/email"
+               android:inputType="textEmailAddress"
+               android:padding="8dp"
+               android:textColor="@android:color/black"
+               android:textSize="18sp" />
            <EditText
                android:id="@+id/password_ed"
                android:layout_width="match_parent"
@@ -105,7 +117,6 @@
                android:padding="8dp"
                android:textColor="@android:color/black"
                android:textSize="18sp" />
-
            <EditText
                android:id="@+id/confirm_password_ed"
                android:layout_width="match_parent"
@@ -122,20 +133,32 @@
                android:textColor="@android:color/black"
                android:textSize="18sp" />
 
-           <EditText
-               android:id="@+id/email_ed"
+
+           <Button
+               android:id="@+id/place_btn"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_marginStart="20dp"
                android:layout_marginTop="4dp"
                android:layout_marginEnd="20dp"
                android:layout_marginBottom="8dp"
-               android:background="@drawable/border_edittext"
-               android:gravity="start|center_vertical"
-               android:hint="@string/email"
-               android:inputType="textEmailAddress"
-               android:padding="8dp"
-               android:textColor="@android:color/black"
+               android:background="@drawable/border_buttons"
+               android:text="@string/select_place"
+               android:textAllCaps="false"
+               android:textColor="@android:color/white"
+               android:textSize="18sp" />
+           <Button
+               android:id="@+id/area_btn"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="20dp"
+               android:layout_marginTop="4dp"
+               android:layout_marginEnd="20dp"
+               android:layout_marginBottom="8dp"
+               android:background="@drawable/border_buttons"
+               android:text="@string/select_area"
+               android:textAllCaps="false"
+               android:textColor="@android:color/white"
                android:textSize="18sp" />
 
            <EditText
@@ -153,9 +176,8 @@
                android:padding="8dp"
                android:textColor="@android:color/black"
                android:textSize="18sp" />
-
            <EditText
-               android:id="@+id/address_ed"
+               android:id="@+id/phone2_ed"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_marginStart="20dp"
@@ -164,8 +186,98 @@
                android:layout_marginBottom="8dp"
                android:background="@drawable/border_edittext"
                android:gravity="start|center_vertical"
-               android:hint="@string/address"
+               android:hint="@string/phone2"
+               android:inputType="number"
+               android:padding="8dp"
+               android:textColor="@android:color/black"
+               android:textSize="18sp" />
+           <EditText
+               android:id="@+id/block_ed"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="20dp"
+               android:layout_marginTop="4dp"
+               android:layout_marginEnd="20dp"
+               android:layout_marginBottom="8dp"
+               android:background="@drawable/border_edittext"
+               android:gravity="start|center_vertical"
+               android:hint="@string/block"
                android:inputType="text"
+               android:padding="8dp"
+               android:textColor="@android:color/black"
+               android:textSize="18sp" />
+           <EditText
+               android:id="@+id/street_ed"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="20dp"
+               android:layout_marginTop="4dp"
+               android:layout_marginEnd="20dp"
+               android:layout_marginBottom="8dp"
+               android:background="@drawable/border_edittext"
+               android:gravity="start|center_vertical"
+               android:hint="@string/street"
+               android:inputType="text"
+               android:padding="8dp"
+               android:textColor="@android:color/black"
+               android:textSize="18sp" />
+           <EditText
+               android:id="@+id/avenue_ed"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="20dp"
+               android:layout_marginTop="4dp"
+               android:layout_marginEnd="20dp"
+               android:layout_marginBottom="8dp"
+               android:background="@drawable/border_edittext"
+               android:gravity="start|center_vertical"
+               android:hint="@string/avenue"
+               android:inputType="text"
+               android:padding="8dp"
+               android:textColor="@android:color/black"
+               android:textSize="18sp" />
+           <EditText
+               android:id="@+id/building_ed"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="20dp"
+               android:layout_marginTop="4dp"
+               android:layout_marginEnd="20dp"
+               android:layout_marginBottom="8dp"
+               android:background="@drawable/border_edittext"
+               android:gravity="start|center_vertical"
+               android:hint="@string/building"
+               android:inputType="text"
+               android:padding="8dp"
+               android:textColor="@android:color/black"
+               android:textSize="18sp" />
+           <EditText
+               android:id="@+id/floor_ed"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="20dp"
+               android:layout_marginTop="4dp"
+               android:layout_marginEnd="20dp"
+               android:layout_marginBottom="8dp"
+               android:background="@drawable/border_edittext"
+               android:gravity="start|center_vertical"
+               android:hint="@string/floor_no"
+               android:inputType="number"
+               android:padding="8dp"
+               android:textColor="@android:color/black"
+               android:textSize="18sp" />
+           <EditText
+               android:id="@+id/appartment_ed"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="20dp"
+               android:layout_marginTop="4dp"
+               android:layout_marginEnd="20dp"
+               android:layout_marginBottom="8dp"
+               android:background="@drawable/border_edittext"
+               android:gravity="start|center_vertical"
+               android:hint="@string/appartment"
+               android:inputType="number"
                android:padding="8dp"
                android:textColor="@android:color/black"
                android:textSize="18sp" />
@@ -180,12 +292,7 @@
                android:textColor="@android:color/white"
                android:textSize="20sp" />
 
-
        </LinearLayout>
    </ScrollView>
-
-
-
-
 
 </LinearLayout>

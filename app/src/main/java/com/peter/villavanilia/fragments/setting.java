@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.peter.villavanilia.ChangePassword;
+import com.peter.villavanilia.setting.ChangePassword;
 import com.peter.villavanilia.MainActivity;
 import com.peter.villavanilia.R;
 import com.peter.villavanilia.setting.Profile;

@@ -17,7 +17,8 @@
     <string name="email">البريد الالكتروني</string>
     <string name="password">كلمة المرور</string>
     <string name="confirm_password">تاكيد كلمة المرور</string>
-    <string name="phone">الهاتف</string>
+    <string name="phone">رقم التليفون</string>
+    <string name="phone2">رقم التليفون 2</string>
     <string name="address">العنوان</string>
     <string name="register_now">سجل الان</string>
     <string name="add_to_cart">اضف الي العربة</string>
@@ -80,4 +81,13 @@
     <string name="error_no_internet_connection">خطأ, لا يوجد اتصال بالانترنت .</string>
     <string name="email_register_before">البريد الالكترونى مسجل من قبل</string>
     <string name="login_faild">فشل تسجيل الدخول</string>
+    <string name="select_place">أختر المكان</string>
+    <string name="select_area">أختر المكان</string>
+    <string name="block">القطعة</string>
+    <string name="street">الشارع</string>
+    <string name="avenue">الجاده</string>
+    <string name="building">المبنى</string>
+    <string name="floor_no">الدور</string>
+    <string name="appartment">الشقة</string>
+    <string name="please_enter">من فضلك قم بإدخال</string>
 </resources>

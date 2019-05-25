@@ -58,12 +58,7 @@ public class Orders extends Fragment {
        ButterKnife.bind(this,view);
 
        alertDialog = Common.alert(getActivity());
-       return view;
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
         orderModelList = new ArrayList<>();
         order_rec.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -72,7 +67,9 @@ public class Orders extends Fragment {
         }else
             Common.showErrorAlert(getActivity(),getString(R.string.error_no_internet_connection));
 
+       return view;
     }
+
 
     private class GetOrders extends AsyncTask<String, Void, String> {
 

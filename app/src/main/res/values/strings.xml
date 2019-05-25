@@ -25,6 +25,7 @@
     <string name="password">Password</string>
     <string name="confirm_password">Confirm password</string>
     <string name="phone">Mobile number</string>
+    <string name="phone2">Mobile number 2</string>
     <string name="address">Address</string>
     <string name="register_now">Register now</string>
     <string name="add_to_cart">Add to cart</string>
@@ -91,7 +92,16 @@
     <string name="please_select_payment_method">Please select payment method.</string>
     <string name="error_no_internet_connection">Error, no internet connection.</string>
     <string name="api" translatable="false">http://app.villa-vanillaa.com/api/</string>
-    <string name="image_link" translatable="false">assets.villa-vanillaa.com//</string>
+    <string name="image_link" translatable="false">http://assets.villa-vanillaa.com</string>
     <string name="login_faild">Login failed</string>
     <string name="email_register_before">Email registered before</string>
+    <string name="select_place">Select Place</string>
+    <string name="select_area">Select Area</string>
+    <string name="block">Block</string>
+    <string name="street">Street</string>
+    <string name="avenue">Avenue</string>
+    <string name="building">Building</string>
+    <string name="floor_no">Floor No</string>
+    <string name="appartment">Appartment No</string>
+    <string name="please_enter">Please enter</string>
 </resources>

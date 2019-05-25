@@ -17,7 +17,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     private Context context;
     private ArrayList<String> imageUrls;
 
-    public ViewPagerAdapter(ProductImage context, ArrayList<String> imageUrls) {
+    public ViewPagerAdapter(Context context, ArrayList<String> imageUrls) {
         this.context = context;
         this.imageUrls = imageUrls;
     }
@@ -40,7 +40,7 @@ public class ViewPagerAdapter extends PagerAdapter {
                 .load(context.getResources().getString(com.peter.villavanilia.R.string.image_link)
                         +imageUrls.get(position))
                 .fit()
-                .centerCrop()
+                .centerCrop().placeholder(com.peter.villavanilia.R.drawable.placeholder)
                 .into(imageView);
         container.addView(imageView);
 

@@ -91,7 +91,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
             product_additions.setText(additions);
             product_price.setText(cart_product.getProduct().getProduct_price()+" "+context.getResources().getString(R.string.kd));
-            Picasso.with(context).load(context.getResources().getString(R.string.image_link)+cart_product.getProduct().getProduct_img()).into(product_image);
+            Picasso.with(context).load(context.getResources().getString(R.string.image_link)+cart_product.getProduct().getProduct_img())
+                    .placeholder(R.drawable.placeholder).into(product_image);
 
         }
 

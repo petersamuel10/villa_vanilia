@@ -63,13 +63,10 @@ public class PaymentMethod extends AppCompatActivity {
     @OnClick(R.id.payBtn)
     public void checkout() {
 
-
-
       try {
             RadioButton checkRadioButton = payment_method_group.findViewById(payment_method_group.getCheckedRadioButtonId());
             payment_status_id = checkRadioButton.getTag().toString();
         }catch (Exception e){}
-
 
 
        if (payment_status_id == null){

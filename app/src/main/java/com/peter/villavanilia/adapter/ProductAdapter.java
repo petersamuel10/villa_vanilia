@@ -106,7 +106,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
                 product_price.setText(productModel.getProduct_price()+" "+context.getResources().getString(R.string.kd));
 
-            Picasso.with(context).load(context.getResources().getString(R.string.image_link)+productModel.getProduct_img()).into(product_image);
+            Picasso.with(context).load(context.getResources().getString(R.string.image_link)+productModel.getProduct_img())
+                    .placeholder(R.drawable.placeholder).into(product_image);
         }
     }
 }

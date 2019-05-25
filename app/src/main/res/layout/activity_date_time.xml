@@ -147,22 +147,154 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/kitchen_notes" />
 
-            <EditText
-                android:id="@+id/address"
+            <TextView
+                android:id="@+id/textView0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginLeft="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:background="@drawable/border_edittext"
-                android:hint="@string/address"
-                android:padding="8dp"
+                android:gravity="center_horizontal"
+                android:padding="4dp"
+                android:text="@string/address"
+                android:textColor="@color/green"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cart_notes" />
+                app:layout_constraintTop_toBottomOf="@+id/cart_notes"/>
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/address"
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView0">
+
+                <Button
+                    android:id="@+id/place_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_buttons"
+                    android:text="@string/select_place"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+                <Button
+                    android:id="@+id/area_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_buttons"
+                    android:text="@string/select_area"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/block_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_edittext"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/block"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/street_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_edittext"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/street"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/avenue_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_edittext"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/avenue"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/building_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_edittext"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/building"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/floor_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_edittext"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/floor_no"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+
+                <EditText
+                    android:id="@+id/appartment_ed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/border_edittext"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/appartment"
+                    android:inputType="number"
+                    android:padding="8dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/continue_btn"

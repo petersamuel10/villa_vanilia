@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,7 +83,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             else
                 category_name.setText(categoryModel.getCategory_title_en());
 
-            Picasso.with(context).load(context.getResources().getString(R.string.image_link)+categoryModel.getCategory_icon()).into(category_image);
+            String link = context.getResources().getString(R.string.image_link)+categoryModel.getCategory_icon();
+
+            Picasso.with(context).load(link).placeholder(R.drawable.placeholder).into(category_image);
+
+
+            Log.i("link",link);
         }
     }
 }

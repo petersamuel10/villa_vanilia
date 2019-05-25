@@ -1,4 +1,4 @@
-package com.peter.villavanilia;
+package com.peter.villavanilia.setting;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.peter.villavanilia.R;
 import com.peter.villavanilia.common.Common;
 
 import butterknife.BindView;

@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,13 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.peter.villavanilia.R;
 import com.peter.villavanilia.adapter.CategoryAdapter;
+import com.peter.villavanilia.adapter.ViewPagerAdapter;
 import com.peter.villavanilia.common.Common;
 import com.peter.villavanilia.model.CategoryModel;
-import com.peter.villavanilia.model.Slider;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -37,6 +37,8 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,11 +49,18 @@ import butterknife.ButterKnife;
 public class Category extends Fragment {
 
     @BindView(R.id.sliderLayout)
-    SliderLayout sliderLayout;
+    ViewPager sliderLayout;
+   /* @BindView(R.id.tab_layout)
+    TabLayout tabLayout;*/
     @BindView(R.id.category_rec)
     RecyclerView category_rec;
 
     AlertDialog alertDialog;
+
+    int currentPage = 0;
+    Timer timer;
+    final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
+    final long PERIOD_MS = 3000; // time in milliseconds between successive task executions.
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -176,12 +185,12 @@ public class Category extends Fragment {
 
         public ProgressDialog dialog;
         public JSONObject jsonObject=null;
-        public ArrayList<Slider> sliders;
+        ArrayList<String> mylist;
         Picasso picasso;
 
         GetSlider(Activity activity) {
             this.dialog = new ProgressDialog(activity);
-            sliders = new ArrayList<>();
+            mylist = new ArrayList<>();
         }
 
         @Override
@@ -247,12 +256,15 @@ public class Category extends Fragment {
 
                         String photos_id = jsonObject.getString("photos_id");
                         String photos_path = jsonObject.getString("photos_path");
+                        Log.i("link1",getResources().getString(R.string.image_link)+photos_path);
 
-                        DefaultSliderView defaultSliderView = new DefaultSliderView(getContext());
+                        mylist.add(photos_path);
+
+                       /* DefaultSliderView defaultSliderView = new DefaultSliderView(getContext());
                         picasso = Picasso.with(getContext());
-                        picasso.load(photos_path);
+                        picasso.load(getResources().getString(R.string.image_link)+photos_path);
                         defaultSliderView.setPicasso(picasso);
-                        sliderLayout.addSlider(defaultSliderView);
+                        sliderLayout.addSlider(defaultSliderView);*/
 
                        /* Slider slider = new Slider(photos_id,photos_path);
                         sliders.add(slider);
@@ -264,6 +276,30 @@ public class Category extends Fragment {
                                 .setScaleType(BaseSliderView.ScaleType.Fit);
                         sliderLayout.addSlider(textSliderView);*/
                 }
+
+                    ViewPagerAdapter adapter = new ViewPagerAdapter(getContext(), mylist);
+                    sliderLayout.setAdapter(adapter);
+                   // tabLayout.setupWithViewPager(sliderLayout,true);
+
+                    /*After setting the adapter use the timer */
+                    final Handler handler = new Handler();
+                    final Runnable Update = new Runnable() {
+                        public void run() {
+                            if (currentPage == mylist.size()) {
+                                currentPage = 0;
+                            }
+                            sliderLayout.setCurrentItem(currentPage++, true);
+                        }
+                    };
+
+                    timer = new Timer(); // This will create a new Thread
+                    timer.schedule(new TimerTask() { // task to be scheduled
+                        @Override
+                        public void run() {
+                            handler.post(Update);
+                        }
+                    }, DELAY_MS, PERIOD_MS);
+
 
 
                 }

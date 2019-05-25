@@ -3,17 +3,22 @@ package com.peter.villavanilia;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.peter.villavanilia.adapter.OrderDetailsAdapter;
+import com.peter.villavanilia.model.OrderDetailsModel;
 import com.peter.villavanilia.common.Common;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,6 +31,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +41,8 @@ public class OrderDetails extends AppCompatActivity {
 
     @BindView(R.id.back_arrow)
     ImageView back_arrow;
+    @BindView(R.id.rootView)
+    ConstraintLayout rootView;
     @BindView(R.id.order_number)
     TextView order_number;
     @BindView(R.id.order_date)
@@ -48,6 +56,7 @@ public class OrderDetails extends AppCompatActivity {
 
     AlertDialog alertDialog;
     OrderDetailsAdapter adapter;
+    ArrayList<OrderDetailsModel> orderDetailsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +81,7 @@ public class OrderDetails extends AppCompatActivity {
         public JSONObject jsonObject=null;
 
         GetOrderDetails(Activity activity) {
+            orderDetailsList = new ArrayList<>();
         }
 
         @Override
@@ -90,7 +100,7 @@ public class OrderDetails extends AppCompatActivity {
                 httpURLConnection.setConnectTimeout(7000);
                 httpURLConnection.setReadTimeout(7000);
 
-                String str = "{\"order_id\":\""+ getIntent().getStringExtra("order_id")+"\"}";
+                String str = "{\"order_id\":\""+ getIntent().getExtras().getString("order_id")+"\"}";
                 Log.i("ccc",str);
 
                 byte[] outputInBytes = str.getBytes("UTF-8");
@@ -129,34 +139,40 @@ public class OrderDetails extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             alertDialog.dismiss();
+            rootView.setVisibility(View.VISIBLE);
 
             try {
                 jsonObject = new JSONObject(new String(result));
-                String status = jsonObject.getString("message");
 
-                if (status.equals("error")) {
+                JSONArray order_list = jsonObject.getJSONArray("order_list");
+                JSONObject object = order_list.getJSONObject(0);
 
-                    // error
-                } else {
+                JSONObject orders = object.getJSONObject("orders");
 
-                    JSONObject customerInfo = jsonObject.getJSONObject("user");
-                    String jwt = jsonObject.getString("jwt");
-                    String user_id = customerInfo.getString("user_id");
-                    String user_name = customerInfo.getString("user_name");
-                    String user_email = customerInfo.getString("user_email");
-                    String user_password = customerInfo.getString("user_password");
-                    String user_telep = customerInfo.getString("user_telep");
-                    String user_address = customerInfo.getString("user_address");
-                    String user_token_device = customerInfo.getString("user_token_device");
+                order_number.setText(orders.getString("order_number"));
+                order_date.setText(orders.getString("order_created_at"));
+                order_status.setText(orders.getString("order_status_en_name"));
 
+                JSONArray product_List = object.getJSONArray("product_List");
+                for (int i = 0; i < product_List.length(); i++) {
+                    JSONObject object1 = product_List.getJSONObject(i);
 
-                    rec_order_products.setLayoutManager(new LinearLayoutManager(OrderDetails.this));
-                    //adapter = new OrderDetailsAdapter();
-                    rec_order_products.setAdapter(adapter);
+                    String product = (object1.getJSONObject("product")).toString();
+
+                    OrderDetailsModel orderDetailsModel =new OrderDetailsModel();
+                    Gson gson = new Gson();
+                    orderDetailsModel = gson.fromJson(product,OrderDetailsModel.class);
+
+                    orderDetailsList.add(orderDetailsModel);
 
                 }
+
+                rec_order_products.setLayoutManager(new LinearLayoutManager(getParent()));
+                adapter = new OrderDetailsAdapter(orderDetailsList);
+                rec_order_products.setAdapter(adapter);
+
             } catch (JSONException e) {
-                Common.showErrorAlert(OrderDetails.this,getString(R.string.error_please_try_again_later));
+                Common.showErrorAlert(OrderDetails.this, getString(R.string.error_please_try_again_later));
             }
 
         }

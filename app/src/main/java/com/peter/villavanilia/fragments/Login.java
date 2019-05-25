@@ -100,6 +100,9 @@ public class Login extends Fragment {
 
     private void calApi() {
 
+        alertDialog.show();
+        final Gson gson = new Gson();
+
         JSONObject postparams = new JSONObject();
         try {
             postparams.put("user_email", email);
@@ -110,11 +113,70 @@ public class Login extends Fragment {
 
         String signin_url = getString(R.string.api) + "LoginUser.php";
         final RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
+        JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, signin_url, postparams, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+                alertDialog.dismiss();
+                requestQueue.stop();
+                String r = response.toString();
+
+                try {
+
+                    LoginData current_user = gson.fromJson(r, LoginData.class);
+                    Common.currentUser = current_user;
+                    Paper.book("villa_vanilia").write("current_user", current_user);
+
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    getContext().startActivity(intent);
+
+                } catch (Exception e) {
+                    Common.showErrorAlert(getActivity(), getString(R.string.error_please_try_again_later));
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                alertDialog.dismiss();
+                Common.showErrorAlert(getActivity(), getString(R.string.login_faild));
+                requestQueue.stop();
+            }
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("cache-control", "application/json");
+                return params;
+            }
+        };
+
+        requestQueue.add(stringRequest);
+
+    }
+
+   /* private void calApi() {
+
+        alertDialog.show();
+
+        JSONObject postparams = new JSONObject();
+        try {
+            postparams.put("user_email", email);
+            postparams.put("user_password", password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String signin_url = getString(R.string.api) + "LoginUser.php";
+        final RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+
          JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.POST, signin_url,postparams, new Response.Listener<JSONObject>() {
              @Override
              public void onResponse(JSONObject response) {
 
+                 alertDialog.dismiss();
                  Log.d("ststst22", "result login: " + response);
+
 
                  try {
 
@@ -138,7 +200,6 @@ public class Login extends Fragment {
                      Gson gson = new Gson();
                      String str = gson.toJson(user);
 
-                     Log.i("bbbn", str);
 
 
                      Intent intent = new Intent(getContext(), MainActivity.class);
@@ -151,8 +212,8 @@ public class Login extends Fragment {
          }, new Response.ErrorListener() {
              @Override
              public void onErrorResponse(VolleyError error) {
-                 Common.showErrorAlert(getActivity(), getString(R.string.login_faild));
-                 password_ed.setText("");
+                 alertDialog.dismiss();
+                 Common.showErrorAlert(getActivity(),getString(R.string.login_faild));
                   requestQueue.stop();
              }
          }){
@@ -166,7 +227,7 @@ public class Login extends Fragment {
 
           requestQueue.add(stringRequest);
 
-    }
+    }*/
 
     private boolean validate(String email, String password) {
 
@@ -211,31 +272,50 @@ public class Login extends Fragment {
                 Gson gson = new Gson();
                 String str = gson.toJson(registerModel);
 
+                Log.d("ststst1100", "result login: " + str);
+
                 byte[] outputInBytes = str.getBytes("UTF-8");
 
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
 
+                Log.d("ststst1188800", "result login: " + str);
+
                 OutputStream OS = httpURLConnection.getOutputStream();
                 OS.write(outputInBytes);
                 BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(OS, "UTF-8"));
+
+                Log.d("ststst1188111", "result login: " + str);
 
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 OS.close();
 
-                InputStream IS = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(IS, "iso-8859-1"));
+                Log.d("ststst1188222", "result login: " + str);
+                BufferedReader bufferedReader = null;
+
+
+                try {
+
+                    InputStream is = httpURLConnection.getInputStream();
+                    bufferedReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+
+                } catch (IOException e) {
+                    Log.d("ststst11888333", "rrrrrorr: " + e.getMessage());
+                } finally {
+                    bufferedReader.close();
+                }
+                Log.d("ststst11888333", "result login: " + str);
 
                 String response = "";
                 String line = "";
-                while ((line = bufferedReader.readLine()) != null) {
+                /*while ((line = bufferedReader.readLine()) != null) {
                     response += line;
                     Log.d("ststst22", "result login: " + line);
                 }
 
                 bufferedReader.close();
-                IS.close();
+                IS.close();*/
                 httpURLConnection.disconnect();
                 return response;
 
@@ -249,7 +329,7 @@ public class Login extends Fragment {
         protected void onPostExecute(String result) {
             alertDialog.dismiss();
 
-            Log.d("ststst11", "result login: " + result);
+            Log.d("ststst1199", "result login: " + result);
 
             if (result.isEmpty()) {
                 Common.showErrorAlert(getActivity(), getString(R.string.login_faild));
@@ -282,8 +362,8 @@ public class Login extends Fragment {
                     Log.i("bbbn", str);
 
 
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                   // getContext().startActivity(intent);
+                    //Intent intent = new Intent(getContext(), MainActivity.class);
+                    // getContext().startActivity(intent);
                 } catch (JSONException e) {
                     Common.showErrorAlert(getActivity(), getString(R.string.error_please_try_again_later));
                 }
