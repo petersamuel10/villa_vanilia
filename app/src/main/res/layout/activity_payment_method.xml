@@ -91,7 +91,7 @@
             android:button="@drawable/radio_button"
             android:checked="true"
             android:layoutDirection="rtl"
-            android:tag="0"
+            android:tag="2"
             android:text="@string/knet"
             android:textAlignment="textStart"
             android:textSize="24sp" />
